@@ -1,9 +1,11 @@
 const express = require('express')
-const { get } = require('./server/api')
+const bodyParser = require('body-parser');
 const api = require('./server/api')
 const app = express()
 const port = 3000
 
+// Middleware
+app.use(bodyParser.json());
 app.use('/api', api)
 app.use(express.static('public'))
 
