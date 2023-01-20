@@ -1,0 +1,128 @@
+body {
+    background-color: rgb(25, 25, 25);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body label {
+    color: white;
+}
+
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+}
+
+.topnav .home {
+    float: left;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.topnav .state {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    background-color: #aa0404;
+    cursor: pointer;
+}
+
+.topnav .time {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+#log {
+    resize: none;
+    color: black;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+    margin-block: 10px;
+    padding: 10px;
+    width: calc(100% - 20px);
+    height: 350px;
+}
+
+#optionHeader {
+    text-align: center;
+    font-size: 24px;
+    color: white;
+}
+
+.line_option {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+#linesToLoad {
+    width: 50px;
+    height: 20px;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: white;
+    border-color: #4CAF50;
+    background-color: rgb(25, 25, 25);
+}
+
+#loadLog {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.reconnect_option {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+#autoReconnect {
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+}
+
+#autoReconnect:checked {
+    accent-color: #4CAF50;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 10px;
+    width: calc(100% - 15px);
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+.footer a,
+.footer p {
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
