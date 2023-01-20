@@ -44,8 +44,10 @@ body label {
 
 #log {
     resize: none;
-    color: black;
-    background-color: #fff;
+    -webkit-text-fill-color: white;
+    opacity: 1;
+    color: white;
+    background-color: #333;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 5px #ccc;
