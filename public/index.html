@@ -1,9 +1,10 @@
 <!doctype html>
-<html>
+<html class="wrapper">
+
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,height=device-height initial-scale=1.0">
   <link rel="stylesheet" href="/css/index.css">
   <script src="/js/app.js"></script>
   <title>Hue Logger</title>
@@ -18,23 +19,34 @@
   <textarea disabled autocomplete="off" id="log"
     readonly="true">No logging data found/loaded from the server!</textarea>
 
-  <p id="optionHeader">Options</p>
+  <div class="optionwrapper">
+    <p id="optionHeader">Options</p>
+    <div class="line_option">
+      <label for="linesToLoad">Lines to Load:</label>
+      <input autocomplete="off" type="number" id="linesToLoad" min="1" max="100" value="20">
+      <button id="loadLog" onclick="loadLog()">Reload</button>
+    </div>
+  
+    <br>
+  
+    <div class="reconnect_option">
+      <label for="autoReconnect">Auto Reconnect:</label>
+      <input autocomplete="off" type="checkbox" id="autoReconnect" onchange="setAutoReconnect()">
+    </div>
 
-  <div class="line_option">
-    <label for="linesToLoad">Lines to Load:</label>
-    <input autocomplete="off" type="number" id="linesToLoad" min="1" max="100" value="20">
-    <button id="loadLog" onclick="loadLog()">Reload</button>
   </div>
 
-  <br>
 
-  <div class="reconnect_option">
-    <label for="autoReconnect">Auto Reconnect:</label>
-    <input autocomplete="off" type="checkbox" id="autoReconnect" onchange="setAutoReconnect()">
-  </div>
+  <p class="test">Nur ein Test diggi
+  </p>
+  
+
+ 
 
   <div class="footer">
-    <p>© 2023 | Created by <a href="https://github.com/fussel132" target="_blank">fussel132</a></p>
+    <p>© 2023 | Created by <a href="https://github.com/fussel132" target="_blank">fussel132</a>
+      and <a href="https://github.com/alexanderboric" target="_blank">alexanderboric</a>
+    </p>
   </div>
 </body>
 
