@@ -20,13 +20,6 @@ function loadLog() {
             .then(data => {
                 document.getElementById('log').innerHTML += data;
             })
-        // Get the events.log content from the server
-
-        /*
-        for (i = 1; i <= lines; i++) {
-            document.getElementById('log').innerHTML += `\nLine ${i} `;
-        }
-        */
         // scroll to bottom
         document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
     }
