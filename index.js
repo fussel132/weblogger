@@ -21,7 +21,7 @@ app.use(express.static('public'))
 app.get('*', function (req, res, next) {
   res.status(404)
   res.set('Content-Type', 'text/html')
-  res.sendFile(__dirname + '/public/404.html');
+  res.sendFile(__dirname + '/public/404.html')
   console.log(`Sent 404.html to ${req.ip}. Reason: ${req.method} ${req.headers.host}${req.url}`)
 });
 
