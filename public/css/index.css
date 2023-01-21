@@ -34,36 +34,28 @@ body label {
     width: 100%;
 }
 
-.topnav .home {
-    flex: 1;
+.topnav a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+    color: #f2f2f2;
+}
+
+.topnav .home {
+    flex: 1;
     background-color: #4CAF50;
-    color: white;
     white-space: nowrap;
 }
 
 .topnav .state {
     flex: 1;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
     background-color: #aa0404;
     cursor: pointer;
 }
 
 .topnav .time {
-
     flex: 18;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
 }
 
 .topnav .timetext {

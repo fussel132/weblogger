@@ -38,7 +38,7 @@ function reconnect() {
     }
 }
 
-// Needs to be called if the keep-alive connection is lost
+// TODO: Needs to be called if the keep-alive connection is lost
 function lostConnection() {
     if (connectionState == "connected") {
         setConnectionState("Disconnected");
