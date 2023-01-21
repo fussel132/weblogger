@@ -11,8 +11,6 @@
 .test {
     color: #f2f2f2;
     text-align: center;
-
-
 }
 
 body {
@@ -104,16 +102,14 @@ body label {
     box-shadow: 0 0 5px #ccc;
     margin-block: 10px;
     padding: 10px;
-
-
-
-
 }
 
 #optionHeader {
     text-align: center;
     font-size: 24px;
     color: white;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .line_option {
@@ -153,6 +149,7 @@ body label {
     justify-content: center;
     align-items: center;
     font-size: 16px;
+    margin-top: 5px;
 }
 
 #autoReconnect {
