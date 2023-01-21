@@ -1,6 +1,6 @@
-.wrapper{
+.wrapper {
     display: flex;
-    flex-grow:1;
+    flex-grow: 1;
     flex-direction: column;
     justify-content: flex-start;
     align-content: center;
@@ -8,16 +8,16 @@
     height: 100%;
 }
 
-.test{
-    color:#f2f2f2;
-    text-align: center; 
-    
-    
+.test {
+    color: #f2f2f2;
+    text-align: center;
+
+
 }
 
 body {
     display: flex;
-    flex:1;
+    flex: 1;
     flex-direction: column;
     background-color: rgb(25, 25, 25);
     font-family: Arial, Helvetica, sans-serif;
@@ -28,25 +28,27 @@ body label {
 }
 
 .topnav {
+    display: flex;
+    flex-direction: row;
     background-color: #333;
     overflow: hidden;
-    display: table;
     margin: 0 auto;
     width: 100%;
 }
 
 .topnav .home {
-    float: left;
+    flex: 1;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
     background-color: #4CAF50;
     color: white;
+    white-space: nowrap;
 }
 
 .topnav .state {
-    float: right;
+    flex: 1;
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
@@ -56,24 +58,9 @@ body label {
     cursor: pointer;
 }
 
-.optionwrapper {
-
-    display:flex;
-    margin-top:auto;
-    position: relative;
-    flex-direction: column;
-    justify-self: flex-end;
-   
-    justify-content: center;
-
-}
-
 .topnav .time {
-    display:flex;
-    flex:1;
-    justify-content: center;
-    
-    margin: 0 auto;
+
+    flex: 18;
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
@@ -81,8 +68,32 @@ body label {
     font-size: 17px;
 }
 
+.topnav .timetext {
+
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.optionwrapper {
+
+    display: flex;
+    margin-top: auto;
+    position: relative;
+    flex-direction: column;
+    justify-self: flex-end;
+
+    justify-content: center;
+
+}
+
 #log {
-    flex:1;
+    flex: 1;
     resize: none;
     -webkit-text-fill-color: white;
     opacity: 1;
@@ -93,11 +104,10 @@ body label {
     box-shadow: 0 0 5px #ccc;
     margin-block: 10px;
     padding: 10px;
-    margin: 45;
-    
 
-    
-    
+
+
+
 }
 
 #optionHeader {

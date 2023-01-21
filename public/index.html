@@ -13,8 +13,9 @@
 <body>
   <div class="topnav">
     <a class="home" href="/">Hue Logger</a>
+    <div class="time" id="time"></div>
     <a class="state" id="state" onclick="reconnect()">Disconnected</a>
-    <a class="time" id="time">00:00:00</a>
+    <a class="timetext" id="timetext">00:00:00</a>
   </div>
   <textarea disabled autocomplete="off" id="log"
     readonly="true">No logging data found/loaded from the server!</textarea>
@@ -26,9 +27,9 @@
       <input autocomplete="off" type="number" id="linesToLoad" min="1" max="100" value="20">
       <button id="loadLog" onclick="loadLog()">Reload</button>
     </div>
-  
+
     <br>
-  
+
     <div class="reconnect_option">
       <label for="autoReconnect">Auto Reconnect:</label>
       <input autocomplete="off" type="checkbox" id="autoReconnect" onchange="setAutoReconnect()">
@@ -39,13 +40,12 @@
 
   <p class="test">Nur ein Test diggi
   </p>
-  
 
- 
+
+
 
   <div class="footer">
-    <p>© 2023 | Created by <a href="https://github.com/fussel132" target="_blank">fussel132</a>
-      and <a href="https://github.com/alexanderboric" target="_blank">alexanderboric</a>
+    <p>© 2023 | Created by <a href="https://github.com/fussel132" target="_blank">@fussel132</a>
     </p>
   </div>
 </body>
