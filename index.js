@@ -1,12 +1,18 @@
-const express = require('express')
-const bodyParser = require('body-parser');
-const api = require('./server/api')
+// Without ES6: const express = require('express')
+import express from 'express';
+import bodyParser from 'body-parser';
+import { router } from './server/api.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
 const app = express()
 const port = 3000
+// Redeclare __dirname to work with ES6
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Middleware
 app.use(bodyParser.json());
-app.use('/api', api)
+app.use('/api', router)
 
 app.get('/', (req, res, next) => {
   res.status(200)

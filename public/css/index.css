@@ -94,6 +94,7 @@ body label {
     box-shadow: 0 0 5px #ccc;
     margin-block: 10px;
     padding: 10px;
+    line-height: 1.2;
 }
 
 #optionHeader {
