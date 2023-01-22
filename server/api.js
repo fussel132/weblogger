@@ -5,9 +5,9 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const eventLog = fs.createWriteStream(__dirname + '/events.log', { flags: 'a+' })
-let clients = []
-export const router = express.Router()
+const eventLog = fs.createWriteStream(__dirname + '/events.log', { flags: 'a+' });
+let clients = [];
+export const router = express.Router();
 
 /**
  * Sends data to all connected clients
@@ -15,9 +15,9 @@ export const router = express.Router()
  */
 function sendDataToClients(data) {
     clients.forEach(client => {
-        client.write(`data: ${data}\n\n`);
+        client.write(`data: ${data}\n\n`);;
     });
-    console.log(`Sent ${data} to ${clients.length} clients`)
+    console.log(`Sent ${data} to ${clients.length} clients`);
 }
 
 /**
@@ -30,19 +30,19 @@ function removeClient(client) {
 
 router.get('/log', (req, res, next) => {
     if (req.headers.reason == "fetchLog") {
-        let lines = req.headers.lines
-        res.status(200)
-        res.set('Content-Type', 'text/plain')
+        let lines = req.headers.lines;
+        res.status(200);
+        res.set('Content-Type', 'text/plain');
         if (lines > 100 || lines < 1) {
-            res.send("Please enter a number between 1 and 100")
-            console.log(`Sent API Error to ${req.ip}`)
+            res.send("Please enter a number between 1 and 100");
+            console.log(`Sent API Error to ${req.ip}`);
         }
         else {
             readLastLines.read(__dirname + '/events.log', lines)
                 .then((result) => {
-                    res.send(result)
+                    res.send(result);
                 })
-            console.log(`Sent events.log (last ${lines} lines) to ${req.ip}. Reason: ${req.headers.reason}`)
+            console.log(`Sent events.log (last ${lines} lines) to ${req.ip}. Reason: ${req.headers.reason}`);
         }
     }
     else {
@@ -52,7 +52,7 @@ router.get('/log', (req, res, next) => {
         res.send("The API is not meant to be accessed with your browser (GET). Return to the <a href='/'>home page</a>.")
         console.log(`Sent API Error to ${req.ip}`)
         */
-        next()
+        next();
     }
 
 })
@@ -65,24 +65,24 @@ router.get('/stream', (req, res, next) => {
     });
 
     // Add the client to the array of connected clients
-    console.log(`Client ${req.ip} connected`)
+    console.log(`Client ${req.ip} connected`);
     clients.push(res);
     res.write(`data: connected\n\n`);
 
     // Close the connection when the client closes it
     req.on('close', () => {
-        console.log(`Client ${req.ip} disconnected`)
-        removeClient(res);
+        console.log(`Client ${req.ip} disconnected`);
+        removeClient(res);;
     });
 })
 
 router.post('/', (req, res, next) => {
-    res.status(200)
-    res.set('Content-Type', 'application/json')
-    res.send(JSON.stringify({ "status": "200", "message": "OK" }))
+    res.status(200);
+    res.set('Content-Type', 'application/json');
+    res.send(JSON.stringify({ "status": "200", "message": "OK" }));
     // Define here what is supposed to be logged
     let postedLogEntry = `Received ${JSON.stringify(req.body)} from ${req.ip} bababui\n`;
-    eventLog.write(`${postedLogEntry}\n`)
-    sendDataToClients(postedLogEntry)
-    console.log(`Received ${JSON.stringify(req.body)} from ${req.ip}`)
+    eventLog.write(`${postedLogEntry}\n`);
+    sendDataToClients(postedLogEntry);
+    console.log(`Received ${JSON.stringify(req.body)} from ${req.ip}`);
 })

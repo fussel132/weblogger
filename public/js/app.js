@@ -8,7 +8,7 @@ let reconnectCount = 0;
 function loadLog() {
     let lines = document.getElementById('linesToLoad').value;
     if (lines > 100 || lines < 1) {
-        alert("Please enter a number between 1 and 100\n")
+        alert("Please enter a number between 1 and 100\n");
     }
     else {
         document.getElementById('log').innerHTML = `Loading last ${lines} lines from the Server:\n`;
@@ -45,7 +45,7 @@ function removeLastLine(x) {
         x.pop();
         x[x.length - 1] += "\n";
     }
-    return x.join('\n')
+    return x.join('\n');
 }
 
 let initialLoad = true;
@@ -103,7 +103,7 @@ function lostConnection() {
             reconnect();
         }
         else {
-            alert("Lost connection. Is the server running?")
+            alert("Lost connection. Is the server running?");
         }
     }
 }
@@ -157,12 +157,12 @@ function showTime() {
 // What should happen if the page finished loading?
 window.onload = () => {
     setInterval(showTime, 500);
-    loadLog()
-    reconnect()
+    loadLog();
+    reconnect();
 
     document.getElementById('linesToLoad').onkeydown = (event) => {
         if (event.key == "Enter") {
-            loadLog()
+            loadLog();
         }
     }
     document.getElementById('year').innerHTML = new Date().getFullYear();
