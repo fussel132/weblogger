@@ -2,12 +2,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { router } from './server/api.js';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
 
 const app = express();
 const port = 3000;
-// Redeclare __dirname to work with ES6
+/* __dirname mapping for CommonJS/ES6 compatability */
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Middleware

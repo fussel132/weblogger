@@ -1,10 +1,12 @@
 import express from 'express'
 import fs from 'fs'
 import readLastLines from 'read-last-lines'
+
+/* __dirname mapping for CommonJS/ES6 compatability */
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
 const eventLog = fs.createWriteStream(__dirname + '/events.log', { flags: 'a+' });
 let clients = [];
 export const router = express.Router();
