@@ -9,7 +9,10 @@ const eventLog = fs.createWriteStream(__dirname + '/events.log', { flags: 'a+' }
 let clients = []
 export const router = express.Router()
 
-// Function to send data to all connected clients
+/**
+ * Sends data to all connected clients
+ * @param {*} data The data to send
+ */
 function sendDataToClients(data) {
     clients.forEach(client => {
         client.write(`data: ${data}\n\n`);
@@ -17,7 +20,10 @@ function sendDataToClients(data) {
     console.log(`Sent ${data} to ${clients.length} clients`)
 }
 
-// Function to remove a disconnected client
+/**
+ * Removes a client from the array of connected clients
+ * @param {*} client The client to remove
+ */
 function removeClient(client) {
     clients = clients.filter(c => c !== client);
 }

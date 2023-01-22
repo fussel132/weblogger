@@ -2,6 +2,9 @@ let connectionState = "disconnected";
 let autoReconnect = false;
 let reconnectCount = 0;
 
+/**
+ * Loads the last x lines from the log file from the server
+ */
 function loadLog() {
     let lines = document.getElementById('linesToLoad').value;
     if (lines > 100 || lines < 1) {
@@ -31,6 +34,11 @@ function loadLog() {
     }
 }
 
+/**
+ * Removes the last line from the log if it is a reconnect message
+ * @param {*} x The log text
+ * @returns The log text without the last line if it is a reconnect message
+ */
 function removeLastLine(x) {
     x = x.split('\n');
     if (x[x.length - 1].startsWith("Lost connection. Attempting to reconnect...")) {
@@ -41,7 +49,13 @@ function removeLastLine(x) {
 }
 
 let initialLoad = true;
-// Is called by the user if there is no connection
+
+/**
+ * Creates a keep-alive connection to /api/stream
+ * If the connection is lost, call lostConnection()
+ * If the connection is established, call setConnectionState("connected")
+ * Called by loadLog() and lostConnection() (also user activated)
+ */
 function reconnect() {
     if (connectionState !== "connected") {
         // hier hin der reconnect status falsch gewünscht
@@ -77,7 +91,9 @@ function reconnect() {
     }
 }
 
-// TODO: Needs to be called if the keep-alive connection is lost
+/**
+ * Called if the connection is lost
+ */
 function lostConnection() {
     if (connectionState !== "disconnected") {
         setConnectionState("Disconnected");
@@ -92,11 +108,17 @@ function lostConnection() {
     }
 }
 
-// Will be called if the user changes the auto-reconnect checkbox
+/**
+ * Called if the user clicks on the connection state
+ */
 function setAutoReconnect() {
     autoReconnect = document.getElementById('autoReconnect').checked;
 }
 
+/**
+ * Sets the connection state
+ * @param {*} state The new connection state
+ */
 function setConnectionState(state) {
     if (state.toLowerCase() == "connected") {
         connectionState = "connected";
@@ -121,6 +143,9 @@ function setConnectionState(state) {
     }
 }
 
+/**
+ * Shows the current time in the format HH:MM:SS
+ */
 function showTime() {
     const date = new Date();
     let hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
