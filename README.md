@@ -1,5 +1,7 @@
 # WebLogger
 
+<a href="https://github.com/fussel132/weblogger/actions"><img src="https://github.com/fussel132/weblogger/actions/workflows/node.js.yml/badge.svg?branch=main" alt="Node.js Workflow Badge"></a>
+
 A simple web application to log data and view it.
 
 ## Installation
