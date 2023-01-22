@@ -6,7 +6,7 @@ A simple web application to log data and view it.
 
 ## Installation
 
-Node.js is required to run this application. To install the dependencies, run:
+Node.js 16.x or above is required to run this application. To install the dependencies, run:
 
 ```bash
 npm install
