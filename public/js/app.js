@@ -134,4 +134,12 @@ window.onload = () => {
     setInterval(showTime, 500);
     loadLog()
     reconnect()
+
+    document.getElementById('linesToLoad').onkeydown = (event) => {
+        if (event.key == "Enter") {
+            loadLog()
+        }
+    }
+    document.getElementById('year').innerHTML = new Date().getFullYear();
 }
+

@@ -75,7 +75,7 @@ router.post('/', (req, res, next) => {
     res.set('Content-Type', 'application/json')
     res.send(JSON.stringify({ "status": "200", "message": "OK" }))
     // Define here what is supposed to be logged
-    let postedLogEntry = `Received ${JSON.stringify(req.body)} with headers ${JSON.stringify(req.headers)} from ${req.ip}\n`;
+    let postedLogEntry = `Received ${JSON.stringify(req.body)} from ${req.ip} bababui\n`;
     eventLog.write(`${postedLogEntry}\n`)
     sendDataToClients(postedLogEntry)
     console.log(`Received ${JSON.stringify(req.body)} from ${req.ip}`)
