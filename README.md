@@ -22,6 +22,7 @@ The Project can be split into two parts: The Frontend and the Backend.
 
 ### REST API (Backend)
 - POST JSON data to `/api/log` to log data.
+  - Example cURL: `curl -X POST -H "Content-type: application/json" -d "{\"Key\":\"Value\"}"`
 - GET JSON data from `/api/log` to get all logged data. (Needs Reason and Line as Headers)
 - GET Log Event Stream at `/api/stream` with EventSource. (Automatically done by the WebApp)
 
