@@ -1,6 +1,6 @@
 {
-  "name": "hue-logger",
-  "version": "0.0.1",
+  "name": "weblogger",
+  "version": "1.0.0",
   "description": "Simple Web Log Viewer",
   "type": "module",
   "main": "index.js",
