@@ -11,7 +11,7 @@ function loadLog() {
         alert("Please enter a number between 1 and 100\n");
     }
     else {
-        document.getElementById('log').innerHTML = `Loading last ${lines} lines from the Server:\n`;
+        document.getElementById('log').innerHTML = `[         Info        ] Loading last ${lines} lines from the Server:\n`;
         fetch('/api/log', {
             method: 'GET',
             headers: {
@@ -23,12 +23,13 @@ function loadLog() {
             .then(data => {
                 document.getElementById('log').innerHTML += data;
                 if (connectionState == "connected") {
-                    document.getElementById('log').innerHTML += "Connected. Now displaying live data:\n";
+                    document.getElementById('log').innerHTML += "[         Info        ] Connected. Now displaying live data:\n";
                 }
                 // scroll to bottom
                 document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
             })
             .catch(error => {
+                alert("Error while loading the log file. Is the server running?");
                 console.error('Error:', error);
             });
     }
@@ -41,7 +42,7 @@ function loadLog() {
  */
 function removeLastLine(x) {
     x = x.split('\n');
-    if (x[x.length - 1].startsWith("Lost connection. Attempting to reconnect...")) {
+    if (x[x.length - 1].startsWith("[        Error        ] Lost connection. Attempting to reconnect...")) {
         x.pop();
         x[x.length - 1] += "\n";
     }
@@ -71,7 +72,7 @@ function reconnect() {
             if (event.data == "connected") {
                 // If the connection is established, call setConnectionState("connected")
                 if (reconnectCount > 0) {
-                    document.getElementById('log').innerHTML = removeLastLine(document.getElementById('log').innerHTML) + "Connected. Now displaying live data:\n";
+                    document.getElementById('log').innerHTML = removeLastLine(document.getElementById('log').innerHTML) + "[         Info        ] Connected. Now displaying live data:\n";
                 }
                 reconnectCount = 0;
                 setConnectionState("Connected");
@@ -98,12 +99,13 @@ function lostConnection() {
     if (connectionState !== "disconnected") {
         setConnectionState("Disconnected");
         if (autoReconnect) {
-            document.getElementById('log').innerHTML = removeLastLine(document.getElementById('log').innerHTML) + `Lost connection. Attempting to reconnect... (${reconnectCount} times)`;
+            document.getElementById('log').innerHTML = removeLastLine(document.getElementById('log').innerHTML) + `[        Error        ] Lost connection. Attempting to reconnect... (${reconnectCount} times)`;
             document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
             reconnect();
         }
         else {
-            alert("Lost connection. Is the server running?");
+            document.getElementById('log').innerHTML += "\n[        Error        ] Lost connection. Attempting to reconnect... (disabled)";
+            alert("No connection. Is the server running?");
         }
     }
 }

@@ -90,6 +90,7 @@ body label {
     margin-block: 10px;
     padding: 10px;
     line-height: 1.2;
+    font-family: monospace;
 }
 
 #optionHeader {

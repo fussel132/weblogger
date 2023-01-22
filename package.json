@@ -10,7 +10,6 @@
   "author": "fussel132",
   "license": "ISC",
   "dependencies": {
-    "dependencies": "^0.0.1",
     "express": "^4.18.2",
     "read-last-lines": "^1.8.0"
   }

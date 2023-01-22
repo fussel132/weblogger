@@ -78,13 +78,24 @@ router.get('/stream', (req, res, next) => {
     });
 })
 
-router.post('/', (req, res, next) => {
+function leadingZero(time) {
+    return time < 10 ? '0' + time : time;
+}
+
+router.post('/log', (req, res, next) => {
     res.status(200);
     res.set('Content-Type', 'application/json');
     res.send(JSON.stringify({ "status": "200", "message": "OK" }));
     // Define here what is supposed to be logged
-    let postedLogEntry = `Received ${JSON.stringify(req.body)} from ${req.ip} bababui\n`;
+    const time = new Date();
+    let hours = leadingZero(time.getHours());
+    let minutes = leadingZero(time.getMinutes());
+    let seconds = leadingZero(time.getSeconds());
+    let date = leadingZero(time.getDate());
+    let month = leadingZero(time.getMonth() + 1);
+    let timestamp = `${date}.${month}.${time.getFullYear()} ${hours}:${minutes}:${seconds}`;
+    let postedLogEntry = `[ ${timestamp} ] Received ${JSON.stringify(req.body)} from ${req.ip}`;
     eventLog.write(`${postedLogEntry}\n`);
-    sendDataToClients(postedLogEntry);
     console.log(`Received ${JSON.stringify(req.body)} from ${req.ip}`);
+    sendDataToClients(postedLogEntry);
 })
