@@ -19,7 +19,7 @@ To serve the applicatoin, run:
 ```bash
 npm run start
 ```
-And you are ready to go! The application will be served at `http://localhost:3000`.
+And you are ready to go! The application will be served at `http://localhost:3000`
 
 ## Usage
 
@@ -54,3 +54,6 @@ The `/api/log` endpoint can either be POSTed to or GETed from.
 Thanks to the following people who have contributed to this project:
 - [@TheRealFloatDev](https://github.com/TheRealFloatDev)
 - [@alexanderboric](https://github.com/alexanderboric)
+
+## Licence
+MIT Licence
