@@ -76,7 +76,6 @@ function reconnect() {
                 }
                 reconnectCount = 0;
                 setConnectionState("Connected");
-                //document.getElementById('log').innerHTML += "Now displaying live data:\n"
                 return;
             }
             // Add the received data to the log
