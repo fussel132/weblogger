@@ -24,6 +24,9 @@ function getHostname(fromIP) {
                 return hostnames[ip];
             }
         }
+        if (fromIP.includes("::ffff:")) {
+            fromIP = fromIP.replace("::ffff:", "");
+        }
         return fromIP;
     }
     catch (err) {
