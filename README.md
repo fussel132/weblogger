@@ -4,7 +4,7 @@
 
 A simple web application to log data and view it.
 
-## Screenshot (used with [hue-controller](https://github.com/fussel132/hue-controller))
+## Screenshot (used with [hue-controller](https://github.com/fussel132/hue-controller/tree/withWebLogger))
 <img src="images/safari_macos.png" alt="A screenshot of the WebLoggers web page" width="1000"/>
 
 ## Installation
