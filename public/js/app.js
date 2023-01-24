@@ -100,7 +100,8 @@ function lostConnection() {
         if (autoReconnect) {
             document.getElementById('log').innerHTML = removeLastLine(document.getElementById('log').innerHTML) + `[        Error        ] Lost connection. Attempting to reconnect... (${reconnectCount} times)`;
             document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
-            reconnect();
+            // Call reconnect function after 1 second
+            setTimeout(reconnect, 1000);
         }
         else {
             document.getElementById('log').innerHTML += "\n[        Error        ] Lost connection. Attempting to reconnect... (disabled)";
