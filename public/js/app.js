@@ -9,30 +9,29 @@ function loadLog() {
     let lines = document.getElementById('linesToLoad').value;
     if (lines > 100 || lines < 1) {
         alert("Please enter a number between 1 and 100\n");
+        return;
     }
-    else {
-        document.getElementById('log').innerHTML = `[         Info        ] Loading last ${lines} lines from the Server:\n`;
-        fetch('/api/log', {
-            method: 'GET',
-            headers: {
-                'reason': 'fetchLog',
-                'lines': lines
-            }
-        })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('log').innerHTML += data;
-                if (connectionState == "connected") {
-                    document.getElementById('log').innerHTML += "[         Info        ] Connected. Now displaying live data:\n";
-                }
-                // scroll to bottom
-                document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
-            })
-            .catch(error => {
-                alert("Error while loading the log file. Is the server running?");
-                console.error('Error:', error);
-            });
-    }
+    document.getElementById('log').innerHTML = `[         Info        ] Loading last ${lines} lines from the Server:\n`;
+    fetch('/api/log', {
+        method: 'GET',
+        headers: {
+            'reason': 'fetchLog',
+            'lines': lines
+        }
+    })
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('log').innerHTML += data;
+        if (connectionState == "connected") {
+            document.getElementById('log').innerHTML += "[         Info        ] Connected. Now displaying live data:\n";
+        }
+        // scroll to bottom
+        document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
+    })
+    .catch(error => {
+        alert("Error while loading the log file. Is the server running?");
+        console.error('Error:', error);
+    });
 }
 
 /**
