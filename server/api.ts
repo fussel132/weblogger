@@ -16,7 +16,7 @@ const eventLog = fs.createWriteStream(__dirname + '/events.log', { flags: 'a+' }
 /**
  * The array of connected clients
  */
-let clients = [];
+let clients: any[] = [];
 
 /**
  * The router for the API
@@ -28,7 +28,7 @@ export const router = express.Router();
  * Will check the hostnames.json file for a hostname for the given IP address. If not found, return the IP back
  * @param {*} fromIP IP address to get the hostname from
  */
-function getHostname(fromIP) {
+function getHostname(fromIP: string) {
     const data = fs.readFileSync(__dirname + '/hostnames.json', { encoding: 'utf8', flag: 'r' });
     try {
         const hostnames = JSON.parse(data);
@@ -52,7 +52,7 @@ function getHostname(fromIP) {
  * Sends data to all connected clients
  * @param {*} data The data to send
  */
-function sendDataToClients(data) {
+function sendDataToClients(data: string) {
     clients.forEach(client => {
         client.write(`data: ${data}\n\n`);;
     });
@@ -63,13 +63,13 @@ function sendDataToClients(data) {
  * Removes a client from the array of connected clients
  * @param {*} client The client to remove
  */
-function removeClient(client) {
+function removeClient(client: any) {
     clients = clients.filter(c => c !== client);
 }
 
 router.get('/log', (req, res, next) => {
     if (req.headers.reason == "fetchLog" && req.headers.lines) {
-        let lines = req.headers.lines;
+        let lines = new Number(req.headers.lines) as number;
         res.status(200);
         res.set('Content-Type', 'text/plain');
         if (lines > 100 || lines < 1) {
@@ -123,7 +123,7 @@ router.get('/stream', (req, res, next) => {
  * @param {*} time The number to add a leading zero to
  * @returns The number with a leading zero if it is smaller than 10
  */
-function leadingZero(time) {
+function leadingZero(time: number) {
     return time < 10 ? '0' + time : time;
 }
 
