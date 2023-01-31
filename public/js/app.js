@@ -15,6 +15,11 @@ let autoReconnect = false;
 let reconnectCount = 0;
 
 /**
+ * Defines if the current load is the initial load
+ */
+let initialLoad = true;
+
+/**
  * Loads the last x lines from the log file from the server
  */
 function loadLog() {
@@ -60,7 +65,6 @@ function removeLastLine(x) {
     return x.join('\n');
 }
 
-let initialLoad = true;
 
 /**
  * Creates a keep-alive connection to /api/stream
