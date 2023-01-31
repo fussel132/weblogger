@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Response } from 'express'
 import fs from 'fs'
 import readLastLines from 'read-last-lines'
 
@@ -16,7 +16,7 @@ const eventLog = fs.createWriteStream(__dirname + '/events.log', { flags: 'a+' }
 /**
  * The array of connected clients
  */
-let clients: any[] = [];
+let clients: Response[] = [];
 
 /**
  * The router for the API
