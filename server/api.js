@@ -7,8 +7,21 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+/**
+ * The event log file as a write stream
+ * This is used to write to the events.log file
+ */
 const eventLog = fs.createWriteStream(__dirname + '/events.log', { flags: 'a+' });
+
+/**
+ * The array of connected clients
+ */
 let clients = [];
+
+/**
+ * The router for the API
+ * Use this to add new API endpoints
+ */
 export const router = express.Router();
 
 /**
@@ -105,6 +118,11 @@ router.get('/stream', (req, res, next) => {
     });
 })
 
+/**
+ * Adds a leading zero to a number if it is smaller than 10
+ * @param {*} time The number to add a leading zero to
+ * @returns The number with a leading zero if it is smaller than 10
+ */
 function leadingZero(time) {
     return time < 10 ? '0' + time : time;
 }
