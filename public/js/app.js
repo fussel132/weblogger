@@ -1,5 +1,17 @@
+/**
+ * State of the connection
+ * Possible values: "connected", "disconnected", "connecting"
+ */
 let connectionState = "disconnected";
+
+/**
+ * Automatically reconnects to the server if the connection is lost
+ */
 let autoReconnect = false;
+
+/**
+ * Failed reconnect attempts
+ */
 let reconnectCount = 0;
 
 /**
