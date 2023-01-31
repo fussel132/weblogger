@@ -57,55 +57,62 @@ let initialLoad = true;
  * Called by loadLog() and lostConnection() (also user activated)
  */
 function reconnect() {
-    if (connectionState !== "connected") {
-        // hier hin der reconnect status falsch gewünscht
-        if (!initialLoad) {
-            reconnectCount++;
-        } else {
-            initialLoad = false;
-        }
-        setConnectionState("Connecting");
-        // Create keep-alive connection to /api/stream
-        let eventSource = new EventSource('/api/stream');
-        eventSource.onmessage = function (event) {
-            if (event.data == "connected") {
-                // If the connection is established, call setConnectionState("connected")
-                if (reconnectCount > 0) {
-                    document.getElementById('log').innerHTML = removeLastLine(document.getElementById('log').innerHTML) + "[         Info        ] Connected. Now displaying live data:\n";
-                }
-                reconnectCount = 0;
-                setConnectionState("Connected");
-                return;
-            }
-            // Add the received data to the log
-            document.getElementById('log').innerHTML += event.data + "\n";
-            // scroll to bottom
-            document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
-        };
-        eventSource.onerror = function (event) {
-            // If the connection is lost, call lostConnection()
-            eventSource.close();
-            lostConnection();
-        };
+    /* -- Check if the connection is already established -- */
+    if (connectionState === "connected") {
+        return;
     }
+    /* -- Check if the connection is already established -- */
+
+    if (!initialLoad) {
+        reconnectCount++;
+    } else {
+        initialLoad = false;
+    }
+    setConnectionState("Connecting");
+    // Create keep-alive connection to /api/stream
+    let eventSource = new EventSource('/api/stream');
+    eventSource.onmessage = function (event) {
+        if (event.data == "connected") {
+            // If the connection is established, call setConnectionState("connected")
+            if (reconnectCount > 0) {
+                document.getElementById('log').innerHTML = removeLastLine(document.getElementById('log').innerHTML) + "[         Info        ] Connected. Now displaying live data:\n";
+            }
+            reconnectCount = 0;
+            setConnectionState("Connected");
+            return;
+        }
+        // Add the received data to the log
+        document.getElementById('log').innerHTML += event.data + "\n";
+        // scroll to bottom
+        document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
+    };
+    eventSource.onerror = function (event) {
+        // If the connection is lost, call lostConnection()
+        eventSource.close();
+        lostConnection();
+    };
 }
 
 /**
  * Called if the connection is lost
  */
 function lostConnection() {
-    if (connectionState !== "disconnected") {
-        setConnectionState("Disconnected");
-        if (autoReconnect) {
-            document.getElementById('log').innerHTML = removeLastLine(document.getElementById('log').innerHTML) + `[        Error        ] Lost connection. Attempting to reconnect... (${reconnectCount} times)`;
-            document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
-            // Call reconnect function after 1 second
-            setTimeout(reconnect, 1000);
-        }
-        else {
-            document.getElementById('log').innerHTML += "\n[        Error        ] Lost connection. Attempting to reconnect... (disabled)";
-            alert("No connection. Is the server running?");
-        }
+    /* -- Check if the connection is already disconnected -- */
+    if (connectionState === "disconnected") {
+        return;
+    }
+    /* -- Check if the connection is already disconnected -- */
+
+    setConnectionState("Disconnected");
+    if (autoReconnect) {
+        document.getElementById('log').innerHTML = removeLastLine(document.getElementById('log').innerHTML) + `[        Error        ] Lost connection. Attempting to reconnect... (${reconnectCount} times)`;
+        document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
+        // Call reconnect function after 1 second
+        setTimeout(reconnect, 1000);
+    }
+    else {
+        document.getElementById('log').innerHTML += "\n[        Error        ] Lost connection. Attempting to reconnect... (disabled)";
+        alert("No connection. Is the server running?");
     }
 }
 
