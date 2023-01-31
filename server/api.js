@@ -66,28 +66,24 @@ router.get('/log', (req, res, next) => {
             res.set('Content-Type', 'application/json');
             res.send(JSON.stringify({ "status": "400", "message": "Bad Request. Please enter a number between 1 and 100" }));
             console.log(`Sent API Error to ${req.ip}`);
+            return;
         }
-        else {
-            readLastLines.read(__dirname + '/events.log', lines)
-                .then((result) => {
-                    res.send(result);
-                })
-            console.log(`Sent events.log (last ${lines} lines) to ${req.ip}. Reason: ${req.headers.reason}`);
-        }
+        readLastLines.read(__dirname + '/events.log', lines)
+            .then((result) => {
+                res.send(result);
+            })
+        console.log(`Sent events.log (last ${lines} lines) to ${req.ip}. Reason: ${req.headers.reason}`);
+        return;
     }
-    else {
-        if (req.headers.reason != "fetchLog" || req.headers.lines == undefined) {
-            // Bad request
-            res.status(400);
-            res.set('Content-Type', 'application/json');
-            res.send(JSON.stringify({ "status": "400", "message": "Bad Request" }));
-        }
-        else {
-            // Assuming access from a web browser
-            next(); // To go to the 404 page
-        }
+    if (req.headers.reason != "fetchLog" || req.headers.lines == undefined) {
+        // Bad request
+        res.status(400);
+        res.set('Content-Type', 'application/json');
+        res.send(JSON.stringify({ "status": "400", "message": "Bad Request" }));
+        return;
     }
-
+    // Assuming access from a web browser
+    next(); // To go to the 404 page
 })
 
 router.get('/stream', (req, res, next) => {
@@ -118,32 +114,31 @@ router.post('/log', (req, res, next) => {
         res.status(400);
         res.set('Content-Type', 'application/json');
         res.send(JSON.stringify({ "status": "400", "message": "Bad Request" }));
+        return;
+    }
+    res.status(200);
+    res.set('Content-Type', 'application/json');
+    res.send(JSON.stringify({ "status": "200", "message": "OK" }));
+    // Define here what is supposed to be logged
+    const time = new Date();
+    let hours = leadingZero(time.getHours());
+    let minutes = leadingZero(time.getMinutes());
+    let seconds = leadingZero(time.getSeconds());
+    let date = leadingZero(time.getDate());
+    let month = leadingZero(time.getMonth() + 1);
+    let timestamp = `${date}.${month}.${time.getFullYear()} ${hours}:${minutes}:${seconds}`;
+    let postedLogEntry = "";
+    if (req.body.msg) {
+        // LogEntry if the POST contains a "msg"
+        postedLogEntry = `[ ${timestamp} ] ${getHostname(req.ip)} - ${req.body.msg}`;
     }
     else {
-        res.status(200);
-        res.set('Content-Type', 'application/json');
-        res.send(JSON.stringify({ "status": "200", "message": "OK" }));
-        // Define here what is supposed to be logged
-        const time = new Date();
-        let hours = leadingZero(time.getHours());
-        let minutes = leadingZero(time.getMinutes());
-        let seconds = leadingZero(time.getSeconds());
-        let date = leadingZero(time.getDate());
-        let month = leadingZero(time.getMonth() + 1);
-        let timestamp = `${date}.${month}.${time.getFullYear()} ${hours}:${minutes}:${seconds}`;
-        let postedLogEntry = "";
-        if (req.body.msg) {
-            // LogEntry if the POST contains a "msg"
-            postedLogEntry = `[ ${timestamp} ] ${getHostname(req.ip)} - ${req.body.msg}`;
-        }
-        else {
-            console.log("No msg in POST body");
-            // LogEntry if the POST does NOT contain a "msg"
-            postedLogEntry = `[ ${timestamp} ] Received ${JSON.stringify(req.body)} from ${getHostname(req.ip)}`;
-        }
-        eventLog.write(`${postedLogEntry}\n`);
-        console.log(`Received ${JSON.stringify(req.body)} from ${req.ip}`);
-        console.log(`Logged \"${postedLogEntry}\"`);
-        sendDataToClients(postedLogEntry);
+        console.log("No msg in POST body");
+        // LogEntry if the POST does NOT contain a "msg"
+        postedLogEntry = `[ ${timestamp} ] Received ${JSON.stringify(req.body)} from ${getHostname(req.ip)}`;
     }
+    eventLog.write(`${postedLogEntry}\n`);
+    console.log(`Received ${JSON.stringify(req.body)} from ${req.ip}`);
+    console.log(`Logged \"${postedLogEntry}\"`);
+    sendDataToClients(postedLogEntry);  
 })
